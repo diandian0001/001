@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+{% load static %}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>地址页面</title>
+<script src="{% static 'js/jquery_1.8.js' %}"></script>
+    <script src="{% static 'js/jquery_cookie.js' %}"></script>
+	<link rel="shortcut icon" href="{% static 'images/favicon.ico?v=20160901' %}" type="image/x-icon">
+    <link href="{% static 'css/shopping_cart_new.css' %}" rel="stylesheet" type="text/css">
+	<link href="{% static 'css/footer_150526.css' %}" rel="stylesheet" type="text/css" />
+</head>
+
+<body style="padding-bottom:82px">
+
+<link href="{% static 'css/header_960_150611.css' %}" rel="stylesheet" type="text/css">
+<script src="{% static 'js/pagetop2015_0827.js' %}" charset="gb2312" type="text/javascript"></script>
+
+<div id="hd">
+<div id="tools">
+<div class="tools">
+    <div class="ddnewhead_operate" dd_name="顶链接">
+        
+        <div class="ddnewhead_welcome" display="none;">
+            <span id="nickname"><span class="hi">Hi，{{ account }}<a href="javascript:void (0)" onclick=location.href="{% url 'dang:out_login' %}">[退出]</a></span></span>
+            <div class="tel_pop" style="display:none" id="__ddnav_sjdd" onmouseover="showgaoji('a_phonechannel','__ddnav_sjdd');" onmouseout="hideotherchannel('a_phonechannel','__ddnav_sjdd');">
+                <a target="_blank" href="http://t.dangdang.com/20130220_ydmr" class="title"><i class="icon_tel"></i>手机当当</a><i class="title_shadow"></i>
+                <ul class="tel_pop_box">
+                    <li><a href="http://t.dangdang.com/20130220_ydmr" dd_name="手机二维码"><span>当当手机客户端</span><img src="http://img3.ddimg.cn/00363/doc/erweima2.png"><span class="text">随手查订单<br>随时享优惠</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="new_head_znx" id="znx_content" style="display:none;"></div>
+    </div>
+</div>
+</div>
+<div id="header_end"></div>
+<!--CreateDate  2016-09-28 11:30:01--></div>
+<form action="http://search.dangdang.com/search.aspx" id="bootpagetopSearch" name="bootpagetopSearch" method="GET"></form>
+<script type="text/javascript">var nick_num = 0;initHeaderOperate();</script><script type="text/javascript" src="http://orderb.dangdang.com/queryunpaid?callback=Unpaid_Data"></script>
+		<div class="shoppingcart_wrapper" id="ad_cpt_11850"><div><a href="http://a.dangdang.com/tjump.php?q=ddo84XQOf357bOs8tXGg5%2F%2F0oVoDImt3DFWsMqu7ZMSVsfUMeOQJueASNiMLjq%2FdrXMLCKnVfyKEahteAh1ih%2ByKYrKGzhvL20LVbDzObRambBA0YPpivy5hR5foQ4Rt%2BTB" target="_blank" rel="nofollow"><img src="http://img62.ddimg.cn/2017/1/11/2017011111344969879.jpg"></a></div></div>
+<div class="logo_line">
+    <div class="w960">
+        <div class="shopping_procedure01 shopping_procedure "><span>我的购物车</span><span class="current">填写订单</span><span>完成订单</span></div>
+        <div class="logo"><a href="#"><img src="{% static 'images/bz_logo_car.jpg' %}" alt=""></a></div>
+    </div>
+</div>
+<div class="indent_con">
+	<div class="shdz">
+
+    	<h3>收货相关信息</h3>
+        <div class="add_line" id="district">
+    <div class="w960">
+        <div class="address" id="dp_adress">
+            <span class="icon_adr">&nbsp;</span>配送地址：
+            <div class="select_add">
+
+{#                历史订单地址#}
+                <select name="" id="addr" onchange="change_addr($(this))">
+                    <option value="0">请选择</option>
+                    {% for addr in address %}
+                        <option value="{{ addr.id }}">{{ addr.address }}</option>
+                    {% endfor %}
+                </select>
+
+{#                <span class="text fn-select-address">北京市东城区</span>#}
+                
+
+
+                <div class="area_pop" style="display:none;">
+                    <a href="javascript:district.close()" class="close"></a>
+                    <ul class="tab">
+                        <li id="ap_province" class="fn-show-province"><a href="javascript:void(0)" id="selected_111">北京</a></li>
+                        <li id="ap_city" class="fn-show-city"><a href="javascript:district.show_city_init(this)" id="selected_1">北京市</a></li>
+                        <li id="ap_area" class="fn-show-area choose"><a href="javascript:district.show_area_init(this)" id="selected_1110101">东城区</a></li>
+                        <li id="ap_village" style="display:none" class="fn-show-village"><a href="javascript:district.show_village_init(this)" id="selected_-1">请选择</a></li>
+                    </ul>
+                    <ul class="list list_notaligned fn-adress">
+
+                    </ul>
+                </div>
+            </div>
+            <!--<a href="#" class="tip"></a>-->
+            <span class="tip_c" style="display:none;">针对不同配送地址，您的货物可能出现缺货或无货状态，敬请谅解。</span>
+        </div>
+    </div>
+</div>
+        <form action="{% url 'dang:indent_logic' %}" method="post" id="pay_money_form">
+            {% csrf_token %}
+        <ul class="shdz_con">
+            <p>▪ 收货地址</p>
+        	<li><label><strong>*</strong>收&nbsp;&nbsp;货&nbsp;&nbsp;人：</label><input type="text" name="username" name1="ship_man" onblur="user_name($(this))"><img src="" alt="" width="20px">
+                <span id="spn_ship_man" class="hint new_tip" style="display: block;">请填写收货人姓名</span>
+                <img src="" alt="">
+            </li>
+            <li><label><strong>*</strong>详细地址：</label><input type="text" name="addr" name1="ship_man" onblur="addr1($(this))" ><img src="" alt="" width="20px"></li>
+            <li><label><strong>*</strong>邮政编码：</label><input type="text" name="zipCode" name1="ship_man" onblur="zipCode1($(this))" ><img src="" alt="" width="20px"></li>
+            <li><label><strong>*</strong>手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机：</label><input type="text" name="phone" name1="ship_man" onblur="get_phone($(this))"><img src="" alt="" width="20px"></li>
+             
+        </ul></form>
+
+
+        <div class="balance"><p>商品金额：¥{{ all_price }}</p><p class="yfze">应付总额（含运费）：<em>¥{{ all_price }}</em></p><p><a href="#" onclick="pay_money()">提交订单</a></p></div>
+    </div>
+
+<script src="/static/js/jquery-1.8.3.min.js"></script>
+<script>
+
+{#    历史地址#}
+    function change_addr(t) {
+        var inputs = $("[name1 = 'ship_man']");
+        for (var i=0; i < inputs.length; i++){
+            if (t.val() === '0'){
+                inputs.eq(i).removeAttr('readonly');
+                inputs.eq(i).val("")
+            } else {
+                inputs.eq(i).attr('readonly', 'readonly');$("#spn_ship_man").attr('style', 'display: none');
+                inputs.eq(i).next().attr('src', '')
+            }
+        }
+        if (t.val() !== "0"){
+            $.ajax({
+                    type: 'post',
+                    url: "{% url 'dang:query_addr' %}",
+                    data: "addr_id=" + t.val() + "&csrfmiddlewaretoken={{ csrf_token }}",
+                    success:function (resp) {
+                        inputs.eq(0).val(resp['name']);
+                        inputs.eq(1).val(resp['address']);
+                        inputs.eq(2).val(resp['zip_code']);
+                        inputs.eq(3).val(resp['phone']);
+                    }
+                })
+        }
+        }
+
+
+
+
+    var phone = 0;
+    function get_phone(t) {
+        var reg = /^1[3-9][0-9]{9}$/;
+        if (reg.test(t.val())) {phone=1; t.next()[0].src = "{% static 'images/right.jpg' %}"}
+        else {phone=0; t.next()[0].src = "{% static 'images/error_3.jpg' %}"}
+    }
+
+{#    邮政编码#}
+    var zip_code = 0;
+    function zipCode1(t) {
+        var reg = /^\d{6}$/;
+        if (reg.test(t.val())) {zip_code=1; t.next()[0].src = "{% static 'images/right.jpg' %}"}
+        else {zip_code=0; t.next()[0].src = "{% static 'images/error_3.jpg' %}"}
+    }
+
+    var username = 0;
+{#    收货人#}
+    function user_name(t) {
+        var span = $("#spn_ship_man");
+        var val = t.val().replace(/(^\s*)|(\s*$)/g, "");
+        if (val){ span.attr('style', 'display: none'); username=1; t.next()[0].src = "{% static 'images/right.jpg' %}"}
+        else { username=0; t.next()[0].src = "{% static 'images/error_3.jpg' %}" }
+    }
+
+{#    详细地址#}
+    var address = 0;
+    function addr1(t) {
+        var reg = /.+?(市|县).*/;
+        if (reg.test(t.val())) {t.next()[0].src = "{% static 'images/right.jpg' %}"; address=1}
+        else {t.next()[0].src = "{% static 'images/error_3.jpg' %}"; address=0}
+    }
+
+
+{#    提交订单#}
+    function pay_money() {
+        var flag = address + username + zip_code + phone;
+        if (flag === 4 || $("#addr").val() > 1) {
+            $("#pay_money_form").submit()
+        } else {
+            alert('地址填写不完全，请继续完善')
+        }
+    }
+
+
+</script>
+    <div class="shdz">
+    	<h3>订单1（百知网配送）</h3>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tbody><tr style="height:30px; line-height:30px;">
+                <th width="34%">商品名称</th>
+                <th width="11%">所在仓库</th>
+                <th width="13%">百知价</th>
+                <th width="11%">促销价</th>
+                <th width="9%">数量</th>
+                <th width="11%">小计</th>
+                <th width="11%">操作</th>
+            </tr>
+            
+                
+                    <tr>
+                        <td>喜欢我也没关系（独家萌宠便利贴版）</td>
+                        <td align="center">天津出版</td>
+                        <td align="center">¥368.40（66折）</td>
+                        <td align="center">--</td>
+                        <td align="center">1</td>
+                        <td align="center">¥368.40</td>
+                        <td align="center"><a href="#">放回购物车</a></td>
+                       
+                    </tr>
+                     <tr>
+                        <td colspan="2"><input type="checkbox" >此订单作为礼品赠送他人</td>
+                        <td colspan="2"><strong>运费：</strong>当确认送货方式后显示</td>
+                        <td class="table_zj" colspan="3"><strong>小计总额：</strong><em>¥368.40</em></td>
+                    </tr>
+                
+            
+                
+            
+        </tbody></table>
+    </div>
+     
+</div>
+
+<div id="footer">
+<div class="footer">
+	<div class="footer_nav_box">
+		<div class="footer_copyright"><span>Copyright (C) 当当网 2004-2014, All Rights Reserved</span><a href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001051000098" target="_blank" class="footer_img" rel="nofollow"><img src="http://img4.dangdang.com/bottom/validate.gif"></a><span><a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">京ICP证041189号</a></span><span>出版物经营许可证&nbsp;新出发京批字第直0673号</span></div>
+	</div>
+</div>
+</div>
+    <div class="foot_tip_ad">广告</div>
+    <style>
+        .foot_tip_ad { width:40px; height:40px; font:12px/40px "simsun"; text-align:center; color:#fff; background-color:#474747; position:fixed; right:0; bottom:10px;_position:absolute; _bottom:auto;_top:expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-(parseInt(this.currentStyle.marginTop,10)||0)-(parseInt(this.currentStyle.marginBottom,10)||0)));}
+    </style>
+
+
+</body>
+</html>
